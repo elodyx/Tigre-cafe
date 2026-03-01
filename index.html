@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tigre Cafe | Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tiger-bg-color: #fce4ec; 
+            --paper-shadow: #b0b0b0;
+            --paper-color: #ffffff;
+            --text-main: #1a1a1a;
+            --accent-border: #e0e0e0;
+            --header-height: 185px;
+            --main-green: #2d4c3e;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background: 
+                linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), 
+                url("https://www.transparenttextures.com/patterns/tiger-nixon.png"),
+                var(--tiger-bg-color);
+            background-size: auto, 350px, auto;
+            background-attachment: fixed;
+        }
+
+        /* --- LANGUAGE TOGGLE --- */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999; 
+            background: white;
+            padding: 4px;
+            border-radius: 50px;
+            display: flex;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--accent-border);
+            touch-action: manipulation; 
+        }
+
+        .lang-btn {
+            border: none;
+            background: none;
+            padding: 8px 16px; 
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 0.75rem;
+            color: #888;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lang-btn.active {
+            background: var(--main-green);
+            color: white;
+        }
+
+        .lang-mk { display: none; }
+
+        header {
+            background-color: white;
+            text-align: center;
+            padding: 20px 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .logo-container { display: flex; flex-direction: column; align-items: center; }
+        .logo-tiger { font-size: 2rem; margin-bottom: 5px; }
+        .logo-text { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin: 0; letter-spacing: -1px; text-transform: uppercase; line-height: 1; }
+        .tagline { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; color: #777; }
+
+        nav { margin-top: 15px; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
+        nav a { text-decoration: none; color: var(--text-main); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+
+        .container { max-width: 800px; margin: 40px auto; padding: 0 15px; box-sizing: border-box; }
+        section { 
+            scroll-margin-top: var(--header-height); 
+            background-color: var(--paper-color); 
+            border: 1px solid var(--accent-border); 
+            margin-bottom: 60px; 
+            position: relative; 
+            box-shadow: 20px 20px 45px rgba(0, 0, 0, 0.15), 8px 8px 0px var(--paper-shadow); 
+        }
+        .content { padding: 50px 40px; }
+        .about-text { text-align: center; line-height: 1.8; font-size: 1.1rem; font-weight: 500; }
+
+        h2 { font-size: 1.8rem; border-bottom: 2px solid var(--main-green); padding-bottom: 10px; margin-bottom: 35px; text-align: center; font-weight: 800; letter-spacing: 1px; }
+        h3 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.4rem; color: var(--main-green); margin-top: 40px; margin-bottom: 15px; }
+
+        .menu-item { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
+        .item-name { font-weight: 700; font-size: 1.05rem; }
+        .dots { flex: 1; border-bottom: 1px dotted #bbb; margin: 0 10px; position: relative; top: -5px; }
+        .item-price { font-weight: 800; font-size: 1.05rem; }
+
+        .specs { 
+            font-size: 0.85rem; 
+            color: #555; 
+            display: block; 
+            margin-top: -8px; 
+            margin-bottom: 15px; 
+            padding: 4px 10px;
+            border-left: 3px solid var(--main-green);
+            background: rgba(45, 76, 62, 0.05);
+        }
+
+        footer { text-align: center; padding: 60px 20px; color: #4e342e; font-size: 0.95rem; font-weight: 600; }
+        footer a { color: var(--main-green); text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            .lang-switch { top: 10px; right: 10px; }
+            .content { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="lang-switch">
+    <button id="btn-en" class="lang-btn active">EN</button>
+    <button id="btn-mk" class="lang-btn">MK</button>
+</div>
+
+<header>
+    <div class="logo-container">
+        <span class="logo-tiger">🐅</span>
+        <div class="logo-text">Tigre Cafe</div>
+        <div class="tagline">
+            <span class="lang-en">coffee till cocktails</span>
+            <span class="lang-mk">од кафе до коктели</span>
+        </div>
+    </div>
+    <nav>
+        <a href="#about"><span class="lang-en">About</span><span class="lang-mk">За нас</span></a>
+        <a href="#coffee"><span class="lang-en">Coffee</span><span class="lang-mk">Кафе</span></a>
+        <a href="#non-coffee"><span class="lang-en">Non-coffee</span><span class="lang-mk">Топли пијалаци</span></a>
+        <a href="#soft"><span class="lang-en">Soft Drinks</span><span class="lang-mk">Пијалаци</span></a>
+        <a href="#cocktails"><span class="lang-en">Cocktails</span><span class="lang-mk">Коктели</span></a>
+        <a href="#spirits"><span class="lang-en">Spirits</span><span class="lang-mk">Алкохол</span></a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section id="about">
+        <div class="content">
+            <h2><span class="lang-en">About</span><span class="lang-mk">За нас</span></h2>
+            <div class="about-text">
+                <span class="lang-en">Tigre Cafe is a specialty coffee shop concept where we blend single origin coffees from the best producers around the world, with unique cocktails paired with delicious food in relaxing ambiance.<br><br>
+                We are located in the former textile factory Pelister in the Crn Most neighborhood in Bitola.</span>
+                <span class="lang-mk">Tigre Cafe е концепт за специјализирано кафе каде што ги мешаме најдобрите кафиња од светските производители со уникатни коктели и вкусна храна во релаксирачки амбиент.<br><br>
+                Се наоѓаме во поранешната текстилна фабрика Пелистер во населбата Црн Мост во Битола.</span>
+            </div>
+        </div>
+    </section>
+    
+    <section id="coffee">
+        <div class="content">
+            <h2><span class="lang-en">Coffee Drinks</span><span class="lang-mk">Кафе Пијалаци</span></h2>
+            <div class="menu-item"><span class="item-name">Espresso</span><div class="dots"></div><span class="item-price">90</span></div>
+            <div class="menu-item"><span class="item-name">Double Espresso</span><div class="dots"></div><span class="item-price">130</span></div>
+            <div class="menu-item"><span class="item-name">Lungo</span><div class="dots"></div><span class="item-price">130</span></div>
+            <div class="menu-item"><span class="item-name">Americano</span><div class="dots"></div><span class="item-price">100</span></div>
+            <div class="menu-item"><span class="item-name">Freddo espresso</span><div class="dots"></div><span class="item-price">140</span></div>
+            <div class="menu-item"><span class="item-name">Caffe corretto</span><div class="dots"></div><span class="item-price">150</span></div>
+            
+            <div class="menu-item" style="margin-top:30px;"><span class="item-name"><span class="lang-en">Single-origin specialty coffee</span><span class="lang-mk">Специјални кафиња</span></span><div class="dots"></div><span class="item-price">150</span></div>
+            <span class="specs">(Ethiopia, Kenya, Honduras, Costa Rica, Brasil, Columbia)</span>
+
+            <h3><span class="lang-en">Coffee with milk</span><span class="lang-mk">Кафе со млеко</span></h3>
+            <div class="menu-item"><span class="item-name">Espresso macchiato</span><div class="dots"></div><span class="item-price">100</span></div>
+            <div class="menu-item"><span class="item-name">Cortado</span><div class="dots"></div><span class="item-price">120</span></div>
+            <div class="menu-item"><span class="item-name">Flat white</span><div class="dots"></div><span class="item-price">140</span></div>
+            <div class="menu-item"><span class="item-name">Cappuccino</span><div class="dots"></div><span class="item-price">120</span></div>
+            <div class="menu-item"><span class="item-name">Freddo cappucino</span><div class="dots"></div><span class="item-price">160</span></div>
+            <div class="menu-item"><span class="item-name">Latte</span><div class="dots"></div><span class="item-price">130</span></div>
+            <div class="menu-item"><span class="item-name">Flavored Latte</span><div class="dots"></div><span class="item-price">150</span></div>
+            <div class="menu-item"><span class="item-name">Mocha</span><div class="dots"></div><span class="item-price">150</span></div>
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Alternative milk</span><span class="lang-mk">Алтернативно млеко</span></span><div class="dots"></div><span class="item-price">+ 20</span></div>
+        </div>
+    </section>
+
+    <section id="non-coffee">
+        <div class="content">
+            <h2><span class="lang-en">Non-coffee drinks</span><span class="lang-mk">Безалкохолни топли пијалаци</span></h2>
+            <div class="menu-item"><span class="item-name">Matcha latte</span><div class="dots"></div><span class="item-price">140</span></div>
+            <div class="menu-item"><span class="item-name">Flavored matcha</span><div class="dots"></div><span class="item-price">150</span></div>
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Hot chocolate</span><span class="lang-mk">Топло чоколадо</span></span><div class="dots"></div><span class="item-price">140</span></div>
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Hot tea</span><span class="lang-mk">Топол чај</span></span><div class="dots"></div><span class="item-price">100</span></div>
+        </div>
+    </section>
+
+    <section id="soft">
+        <div class="content">
+            <h2><span class="lang-en">Soft Drinks</span><span class="lang-mk">Безалкохолни Пијалаци</span></h2>
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Fresh squeezed juice</span><span class="lang-mk">Свежо цеден сок</span></span><div class="dots"></div><span class="item-price">160</span></div>
+            <span class="specs">(Orange, grapefruit, lemon)</span>
+
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Lemonade</span><span class="lang-mk">Лимонада</span></span><div class="dots"></div><span class="item-price">120</span></div>
+            
+            <div class="menu-item"><span class="item-name"><span class="lang-en">In house made refreshers</span><span class="lang-mk">Домашни освежителни пијалаци</span></span><div class="dots"></div><span class="item-price">150</span></div>
+            
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Soda drinks</span><span class="lang-mk">Газирани пијалаци</span></span><div class="dots"></div><span class="item-price">110</span></div>
+            <span class="specs">(Coke, Tonic, Fanta, Sprite)</span>
+
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Juices</span><span class="lang-mk">Густи сокови</span></span><div class="dots"></div><span class="item-price">100</span></div>
+            <span class="specs">(orange, apple, blueberry, peach)</span>
+
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Ice tea</span><span class="lang-mk">Леден чај</span></span><div class="dots"></div><span class="item-price">110</span></div>
+
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Sparkling water</span><span class="lang-mk">Газирана вода</span></span><div class="dots"></div><span class="item-price">70/120</span></div>
+            <span class="specs">(small, large)</span>
+
+            <div class="menu-item"><span class="item-name"><span class="lang-en">Bottle of water</span><span class="lang-mk">Вода во шише</span></span><div class="dots"></div><span class="item-price">120</span></div>
+        </div>
+    </section>
+
+    <section id="cocktails">
+        <div class="content">
+            <h2><span class="lang-en">Signature Cocktails</span><span class="lang-mk">Коктели</span></h2>
+            <div class="menu-item"><span class="item-name">ESPRESSO MARTINI</span><div class="dots"></div><span class="item-price">250</span></div>
+            <span class="specs">(Vodka, espresso, coffee liqueur (Kahlúa), coffee beans)</span>
+            
+            <div class="menu-item"><span class="item-name">MIMOSA</span><div class="dots"></div><span class="item-price">250</span></div>
+            <span class="specs">(Sparkling wine (prosecco or champagne), orange juice)</span>
+
+            <div class="menu-item"><span class="item-name">APEROL SPRITZ</span><div class="dots"></div><span class="item-price">250</span></div>
+            <span class="specs">(Aperol, prosecco, soda water)</span>
+
+            <div class="menu-item"><span class="item-name">OLD FASHIONED</span><div class="dots"></div><span class="item-price">250</span></div>
+            <span class="specs">(Whiskey, bitter, syrup)</span>
+
+            <div class="menu-item"><span class="item-name">GIN AND TONIC</span><div class="dots"></div><span class="item-price">250</span></div>
+            <span class="specs">(Gin, tonic water, fresh lime)</span>
+        </div>
+    </section>
+
+    <section id="spirits">
+        <div class="content">
+            <h2><span class="lang-en">Spirits & Wine</span><span class="lang-mk">Алкохол и Вино</span></h2>
+            <div class="menu-item"><span class="item-name">GIN</span><div class="dots"></div><span class="item-price">150/300</span></div>
+            <span class="specs">(Regular (150), premium (300))</span>
+
+            <div class="menu-item"><span class="item-name">RUM</span><div class="dots"></div><span class="item-price">120</span></div>
+            <span class="specs">(Light (120), dark (120))</span>
+
+            <div class="menu-item"><span class="item-name">VODKA</span><div class="dots"></div><span class="item-price">120/300</span></div>
+            <span class="specs">(Regular (120), premium (300))</span>
+
+            <div class="menu-item"><span class="item-name">TEQUILA</span><div class="dots"></div><span class="item-price">150/300</span></div>
+            <span class="specs">(Regular (150), premium (300))</span>
+
+            <div class="menu-item"><span class="item-name">BRANDY</span><div class="dots"></div><span class="item-price">100</span></div>
+            <span class="specs">(Badel (100), Stock (100))</span>
+
+            <div class="menu-item"><span class="item-name">WHISKEY</span><div class="dots"></div><span class="item-price">160/300</span></div>
+            <span class="specs">(Jameson (160), Monkey Shoulder (300))</span>
+
+            <div class="menu-item"><span class="item-name">RAKIJA</span><div class="dots"></div><span class="item-price">120</span></div>
+            <span class="specs">(Tikveš Kumova Žolta (120))</span>
+
+            <div class="menu-item"><span class="item-name">BEER</span><div class="dots"></div><span class="item-price">150/170</span></div>
+            <span class="specs">(Bak 300 ml (150), 500 ml (170))</span>
+
+            <div class="menu-item">
+                <span class="item-name">WINE</span>
+                <div class="dots"></div><span class="item-price">150</span>
+            </div>
+            <span class="specs">(Prosecco (150), white (150), rosé (150), red (150) per glass)</span>
+
+            <div class="menu-item"><span class="item-name">LIQUEUR</span><div class="dots"></div><span class="item-price">200</span></div>
+            <span class="specs">(Baileys (200))</span>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <span class="lang-en">Follow us on Instagram:</span>
+    <span class="lang-mk">Следете нè на Instagram:</span> 
+    <a href="https://www.instagram.com/cafe_tigre" target="_blank">@CAFE_TIGRE</a>
+</footer>
+
+<script>
+    function changeLang(lang) {
+        const enElems = document.querySelectorAll('.lang-en');
+        const mkElems = document.querySelectorAll('.lang-mk');
+        const btnEn = document.getElementById('btn-en');
+        const btnMk = document.getElementById('btn-mk');
+
+        if (lang === 'mk') {
+            enElems.forEach(el => el.style.display = 'none');
+            mkElems.forEach(el => el.style.display = 'inline');
+            btnMk.classList.add('active');
+            btnEn.classList.remove('active');
+        } else {
+            enElems.forEach(el => el.style.display = 'inline');
+            mkElems.forEach(el => el.style.display = 'none');
+            btnEn.classList.add('active');
+            btnMk.classList.remove('active');
+        }
+    }
+
+    document.getElementById('btn-en').addEventListener('click', function() { changeLang('en'); });
+    document.getElementById('btn-en').addEventListener('touchstart', function(e) { e.preventDefault(); changeLang('en'); }, {passive: false});
+    
+    document.getElementById('btn-mk').addEventListener('click', function() { changeLang('mk'); });
+    document.getElementById('btn-mk').addEventListener('touchstart', function(e) { e.preventDefault(); changeLang('mk'); }, {passive: false});
+</script>
+
+</body>
+</html>
